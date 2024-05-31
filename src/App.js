@@ -1,23 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { data } from './data';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  const [project, setProject] = useState(0);
+
+  const {id, name, creat, image} = data[project];
+
+  const previosProject = () => {
+    setProject ((project => {
+      project --;
+      if (project < 0) {
+        return data.length -1;
+      }
+      return project;
+    }))
+  }
+  
+  const nextProject = () => {
+    setProject((project => {
+      project ++;
+      if (project > data.length -1) {
+        project = 0;
+      }
+      return project;
+    }))
+  }
+  return (<div className='conteiner'>
+    <div className='top'>
+      <h1>{id}- {name}</h1>
+      </div>
+    <div className='top'>
+      <img src={image} alt="foto" width="700px"/>
+    </div>
+    <div className='top'>
+      <h3>{creat}</h3>
+    </div>
+    <div className='btn'>
+      <button onClick={previosProject}>Previos</button>
+
+      <button onClick={nextProject}>Next</button>
+    </div>
     </div>
   );
 }
